@@ -19,7 +19,7 @@ public class Calendrier {
 
         try {
             Fonctions fct = new Fonctions();
-            Statement st = fct.connexionBDDSQL();
+            Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT name FROM actioncat;";
 
@@ -38,25 +38,10 @@ public class Calendrier {
     }
 
     public void addEvent(String cat, int user){
-        try {
-            Fonctions fct = new Fonctions();
-            Statement st = fct.connexionBDDSQL();
+        Fonctions fct = new Fonctions();
 
-            String sqlInsert = "insert into historique(category, user) VALUES("+
-                    getCatId(cat)+
-                    ","+
-                    user+
-                    ");";
-
-            synchronized (Calendrier.class) {
-                st.executeUpdate(sqlInsert);
-            }
-            Log.i("aaa", "insert");
-
-
-
-        } catch(Exception e) {
-            e.printStackTrace();
+        synchronized (Calendrier.class) {
+            fct.addEvent(user, getCatId(cat));
         }
     }
 
@@ -76,7 +61,7 @@ public class Calendrier {
 
         try {
             Fonctions fct = new Fonctions();
-            Statement st = fct.connexionBDDSQL();
+            Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT H.time, U.username, C.name FROM historique H, user U, actioncat C WHERE H.user=U.userid AND H.category=C.category_id";
 
@@ -121,7 +106,7 @@ public class Calendrier {
         int i = 0;
         try {
             Fonctions fct = new Fonctions();
-            Statement st = fct.connexionBDDSQL();
+            Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT category_id FROM actioncat WHERE name='"+name+"';";
 

@@ -58,7 +58,7 @@ CREATE TABLE `historique` (
   KEY `FK_user` (`user`),
   CONSTRAINT `FK_category` FOREIGN KEY (`category`) REFERENCES `actioncat` (`category_id`) ON DELETE SET NULL,
   CONSTRAINT `FK_user` FOREIGN KEY (`user`) REFERENCES `user` (`userid`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `historique` (
 
 LOCK TABLES `historique` WRITE;
 /*!40000 ALTER TABLE `historique` DISABLE KEYS */;
-INSERT INTO `historique` VALUES ('2023-03-26 13:28:33',1,1,1),('2023-03-26 13:28:38',3,1,2),('2023-03-26 14:26:42',4,1,3),('2023-03-26 14:27:20',1,1,4),('2023-03-26 14:29:02',1,1,5),('2023-03-26 15:32:17',1,1,6),('2023-03-26 15:35:02',2,1,7),('2023-03-26 15:37:19',1,1,8),('2023-03-26 15:40:45',2,1,9),('2023-03-26 15:52:10',1,1,10),('2023-03-26 15:58:45',2,1,11),('2023-03-26 16:18:19',3,1,12),('2023-03-26 16:22:51',1,1,13);
+INSERT INTO `historique` VALUES ('2023-03-26 13:28:33',1,1,1),('2023-03-26 13:28:38',3,1,2),('2023-03-26 14:26:42',4,1,3),('2023-03-26 14:27:20',1,1,4),('2023-03-26 14:29:02',1,1,5),('2023-03-26 15:32:17',1,1,6),('2023-03-26 15:35:02',2,1,7),('2023-03-26 15:37:19',1,1,8),('2023-03-26 15:40:45',2,1,9),('2023-03-26 15:52:10',1,1,10),('2023-03-26 15:58:45',2,1,11),('2023-03-26 16:18:19',3,1,12),('2023-03-26 16:22:51',1,1,13),('2023-03-28 13:37:00',1,1,14),('2023-03-28 13:51:46',4,1,15);
 /*!40000 ALTER TABLE `historique` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,11 +135,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Ajout_Evenement`(_user INT, _type INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Ajout_Evenement`(_userid INT, _type INT)
     MODIFIES SQL DATA
 BEGIN
-    IF user > 1 THEN
-		INSERT INTO `historique`(`category`, `user`) VALUES(_type, _user);
+    IF _userid > 0 THEN
+		INSERT INTO `historique`(`category`, `user`) VALUES(_type, _userid);
 	END IF;
 END ;;
 DELIMITER ;
@@ -157,4 +157,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-28 14:48:27
+-- Dump completed on 2023-03-28 15:53:04

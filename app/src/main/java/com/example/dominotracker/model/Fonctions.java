@@ -1,34 +1,44 @@
 package com.example.dominotracker.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.*;
+import java.sql.Types;
 
 public class Fonctions {
 
-    public String ip = "192.168.1.15";
+    private String ip = "192.168.1.15";
 
-    public String port = "3306";
+    private String port = "3306";
 
-    public String nomBD = "domino_tracker";
+    private String nomBD = "domino_tracker";
 
-    public String url = "jdbc:mysql://"+ ip + ":" + port + "/"+ nomBD;
+    private String url = "jdbc:mysql://"+ ip + ":" + port + "/"+ nomBD;
 
-    public static final String user = "monty";
+    private static final String user = "monty";
 
-    public static final String pass = "some_pass";
+    private static final String pass = "some_pass";
+
+    private Connection conn;
 
 
+    private void connectToBD() throws ClassNotFoundException, SQLException {
+        if(conn == null){
+            Class.forName("com.mysql.jdbc.Driver");
 
-    public Statement connexionBDDSQL() {
+            conn = DriverManager.getConnection(url, user, pass);
+        }
+    }
+
+
+    public Statement getStatement() {
 
         try {
 
-            Class.forName("com.mysql.jdbc.Driver");
-
-            Connection conn = DriverManager.getConnection(url, user, pass);
+            connectToBD();
 
             Statement st = conn.createStatement();
 
@@ -51,6 +61,56 @@ public class Fonctions {
         }
 
         //conn.close();
+
+    }
+
+    public int connectUser(String pseudo, String password) {
+
+        try {
+
+            connectToBD();
+            if(pseudo.length()>16 || password.length()>100) return 0;
+
+            String functionName = "connexion";
+            String query = "SELECT " + functionName + "('" + pseudo + "','" + password + "')";
+
+            Statement statement = getStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            return 0;
+        } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+
+            return -1;
+
+        }
+
+
+    }
+
+    public void addEvent(int user, int type) {
+
+        try {
+
+            connectToBD();
+
+
+
+            String call = "{call Ajout_Evenement(?, ?)}";
+            CallableStatement statement = conn.prepareCall(call);
+            statement.setInt(1, user);
+            statement.setInt(2, type);
+            statement.execute();
+
+        } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
 
     }
 

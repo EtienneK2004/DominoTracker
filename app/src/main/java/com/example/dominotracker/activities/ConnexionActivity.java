@@ -36,8 +36,8 @@ public class ConnexionActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 int result = userBD.connexion(pseudo.getText().toString(), mdp.getText().toString());
-                if(result==0){
-                    popupMDP();
+                if(result<=0){
+                    popupMDP(result);
                 }
                 else{
                     NextActivity(result);
@@ -52,11 +52,16 @@ public class ConnexionActivity extends AppCompatActivity {
     }
 
     // Lorsque l'utilisateur rentre un mauvais MDP
-    private void popupMDP() {
+    private void popupMDP(int code_erreur) {
         // AlertDialog pour informer l'utilisateur
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Erreur de connexion");
-        builder.setMessage("Nom d'utilisateur ou mot de passe incorrect.");
+        switch(code_erreur){
+            case(1):
+                builder.setMessage("Erreur avec la base de donnée");
+            default:
+                builder.setMessage("Nom d'utilisateur ou mot de passe incorrect.");
+        }
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
