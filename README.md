@@ -15,3 +15,5 @@ Certaines actions simples sont directement implémentées dans la base de donné
 <img src="https://user-images.githubusercontent.com/95452323/228650373-86b13f0b-5b57-4750-b238-cf6e9c1db7a6.png">
 
 ## Diagramme de classes
+
+<img src="https://cdn.discordapp.com/attachments/924421151504097321/1090730324381675661/image.png">
