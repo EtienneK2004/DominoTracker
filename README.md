@@ -17,3 +17,14 @@ Certaines actions simples sont directement implémentées dans la base de donné
 ## Diagramme de classes
 
 <img src="https://cdn.discordapp.com/attachments/924421151504097321/1090730324381675661/image.png">
+
+## Points d'amélioration
+
+Ayant réalisé ce projet seul, il comporte de nombreux points d'amélioration sur lesquels j'aimerais travailler plus tard:
+<ul>
+  <li>Pouvoir ajouter des éléments aux évenements: commentaires, évenements..</li>
+  <li>Ajouter des statistisques</li>
+  <li>Possibilité d'avoir plusieurs chats, à prendre en compte dans l'affichage, pouvoir sélectionner un chat en particulier ou tous</li>
+  <li>Meilleure interface graphique: Elle est actuellement très basique, je n'ai pas eu le temps de découvrir en détails comment me servir des outils</li>
+  <li>Plusieurs foyers auxquels seraient attribués chaques chats et personnes</li>
+ </ul>
