@@ -1,4 +1,4 @@
-package com.example.dominotracker.activities;
+package com.example.dominotracker.activities.events;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dominotracker.R;
-import com.example.dominotracker.model.Event;
+import com.example.dominotracker.model.events.Event;
 
 import java.util.List;
 

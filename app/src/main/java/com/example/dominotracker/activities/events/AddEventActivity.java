@@ -1,4 +1,4 @@
-package com.example.dominotracker.activities;
+package com.example.dominotracker.activities.events;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
-import com.example.dominotracker.model.Calendrier;
+import com.example.dominotracker.model.events.Calendrier;
 import com.example.dominotracker.R;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -84,7 +84,7 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void finishAct() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, EventsActivity.class);
         intent.putExtra("EXTRA_USER", getIntent().getIntExtra("EXTRA_USER", 0));
 
         // Lancement de l'activité

@@ -1,4 +1,4 @@
-package com.example.dominotracker.activities;
+package com.example.dominotracker.activities.events;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,19 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 
-import com.example.dominotracker.model.Calendrier;
-import com.example.dominotracker.model.Event;
+import com.example.dominotracker.model.events.Calendrier;
+import com.example.dominotracker.model.events.Event;
 import com.example.dominotracker.R;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class EventsActivity extends AppCompatActivity {
     private ArrayList<Event> eventList = new ArrayList<>();
     private DatePickerDialog datePickerDialog;
     private LocalDate selectedDate = LocalDate.now();
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Créer un DatePickerDialog pour permettre à l'utilisateur de sélectionner une date
-        datePickerDialog = new DatePickerDialog(MainActivity.this, (view, year, monthOfYear, dayOfMonth) -> {
+        datePickerDialog = new DatePickerDialog(EventsActivity.this, (view, year, monthOfYear, dayOfMonth) -> {
 
 
 

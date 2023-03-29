@@ -1,7 +1,6 @@
-package com.example.dominotracker.model;
+package com.example.dominotracker.model.events;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Event {
     private String name;

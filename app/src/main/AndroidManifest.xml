@@ -14,19 +14,20 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Domino tracker"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TPBD"
+        android:theme="@style/Theme.Domino"
         tools:targetApi="31">
+
         <activity
-            android:name=".activities.InscriptionActivity"
+            android:name=".activities.user.InscriptionActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AddEventActivity"
+            android:name=".activities.events.AddEventActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.events.EventsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConnexionActivity"
+            android:name=".activities.user.ConnexionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

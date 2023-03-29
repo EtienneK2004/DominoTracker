@@ -1,4 +1,5 @@
-package com.example.dominotracker.model;
+package com.example.dominotracker.model.connexion;
+
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Fonctions {
+public class ConnexionBD {
 
     private String ip = "192.168.1.15";
 
@@ -46,62 +47,37 @@ public class Fonctions {
 
             return st;
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
 
-            e.printStackTrace();
-
-            return null;
-
-        } catch (SQLException e) {
-            System.err.println("          ");
             e.printStackTrace();
 
             return null;
 
         }
-
-        //conn.close();
 
     }
 
-    public void inscription(String pseudo, String mdp, String email) throws InscriptionException {
-
+    public PreparedStatement getPreparedStatement(String sql) {
 
         try {
+
             connectToBD();
-            String sql = "SELECT userid from user where ?=?;";
 
-            PreparedStatement testStatement = conn.prepareStatement(sql);
-            testStatement.setString(1, "username");
-            testStatement.setString(2, pseudo);
-            //Test username déjà pris
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-            ResultSet resultUsername = testStatement.executeQuery();
-            if (resultUsername.next()) {
-                throw new InscriptionException("Nom d'utilisateur déjà pris");
-            }
 
-            //Test email déjà pris
-            testStatement.setString(1, "email");
-            testStatement.setString(2, email);
-            ResultSet resultEmail = testStatement.executeQuery();
-            if (resultEmail.next()) {
-                throw new InscriptionException("Email déjà utilisé");
-            }
 
-            //Insertion
-            String sqlInsert = "INSERT INTO user(username, password, email) VALUES(?, SHA2(?, 256), ?);";
-            PreparedStatement prepInsert = conn.prepareStatement(sqlInsert);
-            prepInsert.setString(1, pseudo);
-            prepInsert.setString(2, mdp);
-            prepInsert.setString(3, email);
-            prepInsert.executeUpdate();
+            return ps;
 
-        }
-        catch(SQLException | ClassNotFoundException e){
+        } catch (ClassNotFoundException | SQLException e) {
+
             e.printStackTrace();
-            throw new InscriptionException("Erreur avec la base de donnée");
+
+            return null;
+
         }
+
+
     }
 
     public int connectUser(String pseudo, String password) {

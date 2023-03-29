@@ -1,6 +1,6 @@
-package com.example.dominotracker.model;
+package com.example.dominotracker.model.events;
 
-import android.util.Log;
+import com.example.dominotracker.model.connexion.ConnexionBD;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,7 +18,7 @@ public class Calendrier {
 
 
         try {
-            Fonctions fct = new Fonctions();
+            ConnexionBD fct = new ConnexionBD();
             Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT name FROM actioncat;";
@@ -38,7 +38,7 @@ public class Calendrier {
     }
 
     public void addEvent(String cat, int user){
-        Fonctions fct = new Fonctions();
+        ConnexionBD fct = new ConnexionBD();
 
         synchronized (Calendrier.class) {
             fct.addEvent(user, getCatId(cat));
@@ -60,7 +60,7 @@ public class Calendrier {
 
 
         try {
-            Fonctions fct = new Fonctions();
+            ConnexionBD fct = new ConnexionBD();
             Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT H.time, U.username, C.name FROM historique H, user U, actioncat C WHERE H.user=U.userid AND H.category=C.category_id";
@@ -105,7 +105,7 @@ public class Calendrier {
     private int getCatId(String name){
         int i = 0;
         try {
-            Fonctions fct = new Fonctions();
+            ConnexionBD fct = new ConnexionBD();
             Statement st = fct.getStatement();
 
             String sqlQuery = "SELECT category_id FROM actioncat WHERE name='"+name+"';";

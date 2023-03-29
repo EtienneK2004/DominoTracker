@@ -1,4 +1,4 @@
-package com.example.dominotracker.activities;
+package com.example.dominotracker.activities.user;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,8 @@ import android.widget.EditText;
 
 
 import com.example.dominotracker.R;
-import com.example.dominotracker.model.User;
+import com.example.dominotracker.activities.events.EventsActivity;
+import com.example.dominotracker.model.user.User;
 
 public class ConnexionActivity extends AppCompatActivity {
 
@@ -91,7 +92,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
 
     public void NextActivity(int userid) {
-        Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
+        Intent intent = new Intent(ConnexionActivity.this, EventsActivity.class);
         intent.putExtra("EXTRA_USER", userid);
         startActivity(intent);
         finish();

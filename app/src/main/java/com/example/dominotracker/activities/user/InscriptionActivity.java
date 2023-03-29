@@ -1,4 +1,4 @@
-package com.example.dominotracker.activities;
+package com.example.dominotracker.activities.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.dominotracker.R;
-import com.example.dominotracker.model.InscriptionException;
-import com.example.dominotracker.model.User;
+import com.example.dominotracker.activities.events.EventsActivity;
+import com.example.dominotracker.model.user.InscriptionException;
+import com.example.dominotracker.model.user.User;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -90,7 +91,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     public void NextActivity(int userid) {
-        Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
+        Intent intent = new Intent(InscriptionActivity.this, EventsActivity.class);
         intent.putExtra("EXTRA_USER", userid);
         startActivity(intent);
         finish();
