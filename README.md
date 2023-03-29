@@ -9,6 +9,22 @@ On y peut se connecter, voir les activités du chat, changer la date et rentrer 
 
 Le projet respecte une architecture MVC, et se connecte directement à une base de donnée MySQL hébergée localement.
 Certaines actions simples sont directement implémentées dans la base de données sous forme de procédures et fonctions. Les autres sont gérées dans les classes faisant partie du dossier "model".
+### Fonctions implémentées dans la base de donnée:
+<ul>
+  <li>connexion(username, password) <i>utilisation de la fonction de hachage SHA256</i></li>
+  <li>add_event(user_id, type)</li>
+</ul>
+ 
+### Fonctions gérées dans les classes Java:
+Calendrier:
+<ul>
+  <li>ArrayList<Event> getEvents()</li>
+  <li>int getCatId(String name)</li>
+</ul>
+User:
+<ul>
+  <li>void inscription(String pseudo, String mdp, String email)</li>
+</ul>
 
 ## Diagramme de cas d'utilisation
 
