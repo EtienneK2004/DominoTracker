@@ -1,5 +1,9 @@
 # DominoTracker
+<center>
 Ce projet n'a rien à voir avec les dominos.
+  
+Etienne Kita 203
+</center>
 
 ## Qu'est ce que Domino tracker ?
 Domino Tracker a pour but de remplacer les post-it que moi et ma famille utilisons tous les jours pour noter l'activité de notre chat Domino, sorti à telle heure, mangé, dormi, etc...
