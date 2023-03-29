@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ConnexionActivity">
+    tools:context=".activities.InscriptionActivity">
 
     <EditText
         android:id="@+id/pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="Username"
+        android:hint="Nom d'utilisateur"
         android:layout_marginTop="50dp"
+        />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Email"
+        android:layout_marginTop="100dp"
         />
 
     <EditText
@@ -20,8 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="Password"
-        android:layout_marginTop="100dp"
+        android:hint="Mot de passe"
+        android:layout_marginTop="150dp"
         />
 
     <Button
@@ -30,15 +39,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:text="Connexion"
+        android:text="Inscription"
         />
 
     <Button
-        android:id="@+id/btn_inscription"
+        android:id="@+id/btn_connexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp"
-        android:text="Je n'ai pas de compte" />
+        android:text="J'ai déjà un compte" />
 
 </RelativeLayout>

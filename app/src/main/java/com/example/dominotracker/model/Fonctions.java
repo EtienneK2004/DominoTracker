@@ -3,10 +3,10 @@ package com.example.dominotracker.model;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 
 public class Fonctions {
 
@@ -62,6 +62,46 @@ public class Fonctions {
 
         //conn.close();
 
+    }
+
+    public void inscription(String pseudo, String mdp, String email) throws InscriptionException {
+
+
+        try {
+            connectToBD();
+            String sql = "SELECT userid from user where ?=?;";
+
+            PreparedStatement testStatement = conn.prepareStatement(sql);
+            testStatement.setString(1, "username");
+            testStatement.setString(2, pseudo);
+            //Test username déjà pris
+
+            ResultSet resultUsername = testStatement.executeQuery();
+            if (resultUsername.next()) {
+                throw new InscriptionException("Nom d'utilisateur déjà pris");
+            }
+
+            //Test email déjà pris
+            testStatement.setString(1, "email");
+            testStatement.setString(2, email);
+            ResultSet resultEmail = testStatement.executeQuery();
+            if (resultEmail.next()) {
+                throw new InscriptionException("Email déjà utilisé");
+            }
+
+            //Insertion
+            String sqlInsert = "INSERT INTO user(username, password, email) VALUES(?, SHA2(?, 256), ?);";
+            PreparedStatement prepInsert = conn.prepareStatement(sqlInsert);
+            prepInsert.setString(1, pseudo);
+            prepInsert.setString(2, mdp);
+            prepInsert.setString(3, email);
+            prepInsert.executeUpdate();
+
+        }
+        catch(SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+            throw new InscriptionException("Erreur avec la base de donnée");
+        }
     }
 
     public int connectUser(String pseudo, String password) {

@@ -1,6 +1,5 @@
 package com.example.dominotracker.activities;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -9,74 +8,74 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import com.example.dominotracker.R;
+import com.example.dominotracker.model.InscriptionException;
 import com.example.dominotracker.model.User;
 
-public class ConnexionActivity extends AppCompatActivity {
+public class InscriptionActivity extends AppCompatActivity {
 
-    private static Button btn_send, btn_inscription;
-    private static EditText pseudo, mdp;
-
+    private static Button btn_send, btn_connexion;
+    private static EditText pseudo, mdp, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connexion);
+        setContentView(R.layout.activity_inscription);
+
         User userBD = new User();
         pseudo = (EditText) findViewById(R.id.pseudo);
         mdp = (EditText) findViewById(R.id.mdp);
+        email = (EditText) findViewById(R.id.email);
 
         btn_send = (Button) findViewById(R.id.btn_send);
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                int result = userBD.connexion(pseudo.getText().toString(), mdp.getText().toString());
-                if(result<=0){
-                    popupMDP(result);
-                }
-                else{
+                try {
+                    Log.i("pseudo", pseudo.getText().toString());
+                    userBD.inscription(pseudo.getText().toString(), mdp.getText().toString(), email.getText().toString());
+                    int result = userBD.connexion(pseudo.getText().toString(), mdp.getText().toString());
                     NextActivity(result);
+                }catch(InscriptionException e){
+                    popup(e.getMessage());
                 }
+
             }
         });
 
+        btn_connexion = (Button) findViewById(R.id.btn_connexion);
 
-        btn_inscription = (Button) findViewById(R.id.btn_inscription);
-
-        btn_inscription.setOnClickListener(new View.OnClickListener() {
+        btn_connexion.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                gotoInscription();
+                gotoConnexion();
             }
         });
+
 
         if(Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
     }
 
-    private void gotoInscription() {
-        Intent intent = new Intent(ConnexionActivity.this, InscriptionActivity.class);
+    private void gotoConnexion() {
+        Intent intent = new Intent(InscriptionActivity.this, ConnexionActivity.class);
         startActivity(intent);
         finish();
     }
 
-    // Lorsque l'utilisateur rentre un mauvais MDP
-    private void popupMDP(int code_erreur) {
+    private void popup(String message) {
         // AlertDialog pour informer l'utilisateur
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Erreur de connexion");
-        switch(code_erreur){
-            case(1):
-                builder.setMessage("Erreur avec la base de donnée");
-            default:
-                builder.setMessage("Nom d'utilisateur ou mot de passe incorrect.");
-        }
+        builder.setTitle("Erreur d'inscription");
+        builder.setMessage(message);
+
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -91,7 +90,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
 
     public void NextActivity(int userid) {
-        Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
+        Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
         intent.putExtra("EXTRA_USER", userid);
         startActivity(intent);
         finish();

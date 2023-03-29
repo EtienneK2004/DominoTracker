@@ -58,7 +58,7 @@ CREATE TABLE `historique` (
   KEY `FK_user` (`user`),
   CONSTRAINT `FK_category` FOREIGN KEY (`category`) REFERENCES `actioncat` (`category_id`) ON DELETE SET NULL,
   CONSTRAINT `FK_user` FOREIGN KEY (`user`) REFERENCES `user` (`userid`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `historique` (
 
 LOCK TABLES `historique` WRITE;
 /*!40000 ALTER TABLE `historique` DISABLE KEYS */;
-INSERT INTO `historique` VALUES ('2023-03-26 13:28:33',1,1,1),('2023-03-26 13:28:38',3,1,2),('2023-03-26 14:26:42',4,1,3),('2023-03-26 14:27:20',1,1,4),('2023-03-26 14:29:02',1,1,5),('2023-03-26 15:32:17',1,1,6),('2023-03-26 15:35:02',2,1,7),('2023-03-26 15:37:19',1,1,8),('2023-03-26 15:40:45',2,1,9),('2023-03-26 15:52:10',1,1,10),('2023-03-26 15:58:45',2,1,11),('2023-03-26 16:18:19',3,1,12),('2023-03-26 16:22:51',1,1,13),('2023-03-28 13:37:00',1,1,14),('2023-03-28 13:51:46',4,1,15);
+INSERT INTO `historique` VALUES ('2023-03-29 12:31:22',1,5,17);
 /*!40000 ALTER TABLE `historique` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `user` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `userid` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('toto','toto','toto','2023-03-25 16:21:21',1);
+INSERT INTO `user` VALUES ('Etienne','etienne.kita77@gmail.com','27e5a3bc523bbe122aa82fd678c916cf80dbfbe59df7ce4336f4d841454439ac','2023-03-29 12:31:16',5);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,11 +114,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `connexion`(_username VARCHAR(16), _password VARCHAR(100)) RETURNS int
     READS SQL DATA
 BEGIN
-	DECLARE user INT;
-    SET user = 0;
-	SELECT userid into user FROM user WHERE username=_username AND password=_password;
-	
-	RETURN user;
+    DECLARE user_id INT;
+    SET user_id = 0;
+    SELECT userid INTO user_id FROM user U WHERE U.username=_username AND U.password=SHA2(_password, 256);
+
+    RETURN user_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -157,4 +157,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-28 15:53:04
+-- Dump completed on 2023-03-29 14:51:37
